@@ -1,12 +1,17 @@
-% We assume compartimentalization at major branches
+% This routine creates a MU poool and assigns NMJs to each MU based on the
+% number of muscle fibers in each MU.
+% We assume compartimentalization at major branches (axons cannot branch
+% before entering one of the major branches)
 clear all
 load nervetree.mat
 model_data_tree
 % define motor unit pool
 n = 1:1:nMu;
-P = exp( log(forceRange).* (n-1) / (nMu-1));
-P2=round(P*nMu*nNMJ/sum(P));
-
+P = exp( log(forceRange).* (n-1) / (nMu-1)); % normalized twitch force 
+P2=round(P*nMu*nNMJ/sum(P)); % number of muscle fibers based on the normalized twitch force
+tic
+% we iterate until a configuration that deviates less than a 5 % than the
+% values from P2 is found
 iteration=1
 mean_dev=1000;
 dev=zeros(nMu,1);
@@ -57,12 +62,15 @@ plot(P2,'r')
 figure(2)
 plot(dev)
 
+% create a list of the NMJ assigned to each MU
 for i=1:nMu
     nodes=find(MU_assigned==i);
 MU_NMJ{i,1}=NMJ_nodes(nodes);
 MU_NMJ{i,2}=length(find(MU_assigned==i));
 end
 
+% trace the path taken by each MU axon from the nerve trunk to the NMJs
+% assigned to the MU
 for i=1:nMu
     mu_points=MU_NMJ{i,1};
     MU_tree{i,1}=mu_points;
@@ -76,5 +84,6 @@ for i=1:nMu
     MU_tree{i,1}=unique(MU_tree{i,1});
     MU_tree{i,2}=neuropoints(MU_tree{i,1},4);
 end
+toc
 save('mu_tree.mat','MU_tree')
 clear all

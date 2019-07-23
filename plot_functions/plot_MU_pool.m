@@ -1,7 +1,6 @@
 close all
 load('Ranvier.mat')
 model_data_tree
-forceRange=20; % force difference between largest and smallest MU
 n = 1:1:nMu;
 P = exp( log(forceRange).* (n-1) / (nMu-1));
 P2=round(P*nMu*nNMJ/sum(P));

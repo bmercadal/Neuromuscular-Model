@@ -1,3 +1,4 @@
+% This routine creates the intramuscular nerve spatial distribution
 tic
 close all
 %load model data and add folders to the path
@@ -7,11 +8,11 @@ neuropoints=[];
 order=1;
 step = min_rad*internodal_dist*sqrt(1000);
 neuropoints(1,:)=[0 0 0 1 0 1 0 0];
-neuropoints(2,:)=[0 0 5*step 1 1 2 0 0];
+neuropoints(2,:)=[0 0 muscle_length/25 1 1 2 0 0];
 %create major branches
 neuropoints=major_branches(2,neuropoints,n_major_branches,muscle_radius,muscle_length,motor_endplate,step);
 % expand minor branches
-neuropoints=minor_branches_v2(neuropoints,n_minor_branches,muscle_radius,muscle_length,motor_endplate,overlap,step);
+neuropoints=minor_branches_v2(neuropoints,n_minor_branches,muscle_radius,muscle_length,motor_endplate,step);
 % cut the major branches at the last minor branch
 neuropoints=cut_major_branches(neuropoints);
 % create third level branches
@@ -31,4 +32,4 @@ clear all
 % 6 / level 
 % 7 / major branch index to which the point belongs
 % 8 / minor branch index to which the point belongs
-% 9 / third level branch inde to which the point belongs
+% 9 / third level branch index to which the point belongs

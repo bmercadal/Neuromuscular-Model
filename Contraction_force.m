@@ -1,17 +1,26 @@
+% This routine calculates the response of each axon to an electrical
+% stimulus. The relative twitch force is calculated by adding the muscle
+% fibers from all MUs that have been activated by the electrical stimulus
+% and dividing that by the total number of muscle fibers.
 clear all
 tic
 addpath('plot_functions','tree_functions','Membrane_model')
 load Ranvier.mat
 model_data_tree
-rho=5;
-el_pos=[0.05 0 0.01]
-t_pulse=250e-6;
-force=n_fibers/sum(n_fibers);
-I_el=1e-3*(0:0.125:1.5);
+
+%% model parameters
+rho=5; % muscle resistivity
+el_pos=[0.05 0 0.005]; % position of the electrode
+t_pulse=250e-6; % pulse length
+force=n_fibers/sum(n_fibers); % relative force of each MU
+% I_el=1e-3*(0:0.125:1.5); % electrode current
+I_el=0.3;
+%%
 activity=zeros(nMu,length(I_el));
 for k=1:length(I_el)
 k     
-parfor i=1:nMu
+for i=1:nMu
+    i
 Axon=cell2mat(Ranvier(i,1));
 Adjacent=cell2mat(Ranvier(i,2));
 Radius=cell2mat(Ranvier(i,3));

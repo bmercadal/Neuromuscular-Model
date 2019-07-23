@@ -1,6 +1,4 @@
 function [r theta]=sunflower(n, alpha)   %  example: n=500, alpha=2
-    clf
-    hold on
     b = round(alpha*sqrt(n));      % number of boundary points
     phi = (sqrt(5)+1)/2;           % golden ratio
     for k=1:n

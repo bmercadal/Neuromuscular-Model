@@ -1,3 +1,5 @@
+% This routine calculates the exact locations of the Nodes of Ranvier based
+% on the paths of the axon and their diameters.
 clear all
 addpath('plot_functions','tree_functions')
 load nervetree.mat
@@ -180,9 +182,9 @@ Adjacent(end+1)=index;
 Adjacent(end+1:length(Axon))=0;
 end
 
-Ranvier{i,1}=Axon;
-Ranvier{i,2}=Adjacent;
-Ranvier{i,3}=Axon_rad;
+Ranvier{i,1}=Axon; % positions of the nodes
+Ranvier{i,2}=Adjacent; % adjacent nodes (branching points)
+Ranvier{i,3}=Axon_rad; % axonal radius
 Axon=[];
 Adjacent=[];
 Axon_rad=[];

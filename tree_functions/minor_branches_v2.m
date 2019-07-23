@@ -1,9 +1,10 @@
-function neuropoints=minor_branches_v2(neuropoints,n_minor_branches,muscle_radius,muscle_length,motor_endplate,overlap,step)
+function neuropoints=minor_branches_v2(neuropoints,n_minor_branches,muscle_radius,muscle_length,motor_endplate,step)
 % major branches atract minor branches from points equally distributed. A
 % wheight is assigned to each point of the branch using a normal
 % probability distribution centered in a point of the branch randomly
 % assigned
 step=step/sqrt(n_minor_branches);
+overlap=0;
 % create equally distributed points for each minor branch
 nmajor=max(neuropoints(:,7));
 points=n_minor_branches*nmajor;
